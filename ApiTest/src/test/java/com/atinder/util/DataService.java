@@ -1,16 +1,17 @@
-package com.atinder.common;
+package com.atinder.util;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
-import com.atinder.common.CommonUtil;
 
 @Service
 public class DataService {
-
+	private static final Logger logger = LoggerFactory.getLogger(DataService.class);
 	
 	@Value("${baseUrl}")
 	private String baseUrl;
@@ -77,54 +78,58 @@ public class DataService {
 
 	public String getPlaceOrderJSon() {
 			try {
-				return CommonUtil.readJson(new ClassPathResource("placeOrderRequest.json").getFile());
+				return CommonUtil.readJson(new ClassPathResource("payload/placeOrderRequest.json").getFile());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error("-------------------------- getPlaceOrderJSon------------" + e.getMessage(),e);
 			}
-			return baseUrl;
+			return null;
 	}
 	
 	public String getFutureOrderPlaceJSon() {
 			try {
-				return CommonUtil.readJson(new ClassPathResource("futureOrderRequest.json").getFile());
+				return CommonUtil.readJson(new ClassPathResource("payload/futureOrderRequest.json").getFile());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error("-------------------------- getFutureOrderPlaceJSon------------" + e.getMessage(),e);
 			}
-			return baseUrl;
+			return null;
 		
 	}
 	
 	public String getPastOrderPlaceJSon() {
 			try {
-				return CommonUtil.readJson(new ClassPathResource("pastOrderRequest.json").getFile());
+				return CommonUtil.readJson(new ClassPathResource("payload/pastOrderRequest.json").getFile());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error("-------------------------- getPastOrderPlaceJSon------------" + e.getMessage(),e);
 			}
-			return baseUrl;
+			return null;
 		
 	}
 	
 	public String getinvalidPlaceOrderJson() {
 			try {
-				return CommonUtil.readJson(new ClassPathResource("invalidPlaceOrderRequest.json").getFile());
+				return CommonUtil.readJson(new ClassPathResource("payload/invalidPlaceOrderRequest.json").getFile());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error("-------------------------- getinvalidPlaceOrderJson------------" + e.getMessage(),e);
 			}
-			return baseUrl;
+			return null;
 	}
 	public String getInvalidFutureOrderPlaceJSon() {
 		try {
-			return CommonUtil.readJson(new ClassPathResource("invalidFutureOrderRequest.json").getFile());
+			return CommonUtil.readJson(new ClassPathResource("payload/invalidFutureOrderRequest.json").getFile());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("-------------------------- getinvalidPlaceOrderJson------------" + e.getMessage(),e);
 		}
-		return baseUrl;
+		return null;
 	
 }
+	/**************Status of Orders********************/
+	public enum ORDER_STATUS {
+		ONGOING, COMPLETED, CANCELLED;
+	}
 	
 }
