@@ -42,15 +42,15 @@ public class PlaceOrderTest {
 	 * Place order with valid payload 
 	 */
 	@Test
-	public void test_placeOrder() {
-		logger.info("-------------------------- test_placeOrder------------");
+	public void testPlaceOrder() {
+		logger.info("-------------------------- testPlaceOrder------------");
 		restCall.placeOrder(dataService.getPlaceOrderJSon()).then().statusCode(HttpStatus.SC_CREATED);
 	}
 	/**
 	 * Place future order with valid payload 
 	 */
 	@Test
-	public void test_placeOrderforFuture() {
+	public void testPlaceOrderForFuture() {
 		logger.info("-------------------------- test_placeOrderforFuture------------");
 		restCall.placeOrder(dataService.getFutureOrderPlaceJSon()).then().statusCode(HttpStatus.SC_CREATED);
 	}
@@ -58,7 +58,7 @@ public class PlaceOrderTest {
 	 * Place order with invalid payload 
 	 */
 	@Test
-	public void test_placeOrder_Invalid() {
+	public void testPlaceOrderInvalid() {
 		logger.info("-------------------------- test_placeOrder_Invalid------------");
 		restCall.placeOrder(dataService.getinvalidPlaceOrderJson()).then().statusCode(HttpStatus.SC_BAD_REQUEST)
 				.assertThat().body("message", equalTo(messagesReader.get("errorInFiledsStop")));
@@ -67,7 +67,7 @@ public class PlaceOrderTest {
 	 * Place future order with past date
 	 */
 	@Test
-	public void test_placeOrderforPast() {
+	public void testPlaceOrderForPast() {
 		logger.info("-------------------------- test_placeOrderforPast------------");
 		restCall.placeOrder(dataService.getPastOrderPlaceJSon()).then().statusCode(HttpStatus.SC_BAD_REQUEST).
 		assertThat().body("message", equalTo(messagesReader.get("futureOrderWithPastDateError")));
@@ -76,7 +76,7 @@ public class PlaceOrderTest {
 	 * Place future order with invalid payload
 	 */
 	@Test
-	public void test_placeOrderforFuture_Invalid() {
+	public void testPlaceOrderForFutureInvalid() {
 		logger.info("-------------------------- test_placeOrderforFuture_Invalid------------");
 		restCall.placeOrder(dataService.getInvalidFutureOrderPlaceJSon()).then().statusCode(HttpStatus.SC_BAD_REQUEST)
 		.assertThat().body("message", equalTo(messagesReader.get("errorInFiledsStop")));
@@ -86,7 +86,7 @@ public class PlaceOrderTest {
 	 *Validate Stops 
 	 */
 	@Test
-	public void test_orderStops() {
+	public void testOrderStops() {
 		logger.info("-------------------------- test_orderStops------------");
 		String orderString = dataService.getPlaceOrderJSon();
 		JSONParser jsonParser = new JSONParser();

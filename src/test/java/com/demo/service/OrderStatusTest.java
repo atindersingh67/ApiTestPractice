@@ -39,8 +39,8 @@ public class OrderStatusTest {
 	 * Set Ongoing status for a fresh created order 
 	 */
 	@Test
-	public void test_OngoingStatus() {
-		logger.info("-------------------------- test_OngoingStatus------------");
+	public void testOngoingStatus() {
+		logger.info("-------------------------- testOngoingStatus------------");
 		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
 
 		int id = Integer.parseInt(response.jsonPath().getString("id"));
@@ -52,8 +52,8 @@ public class OrderStatusTest {
 	 * Set Ongoing status twice
 	 */
 	@Test
-	public void test_OngoingStatus_after_ongoing() {
-		logger.info("-------------------------- test_OngoingStatus_after_ongoing------------");
+	public void testOngoingStatusAfterOngoing() {
+		logger.info("-------------------------- testOngoingStatusAfterOngoing------------");
 		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
 
 		int id = Integer.parseInt(response.jsonPath().getString("id"));
@@ -66,8 +66,8 @@ public class OrderStatusTest {
 	 * Set Complete status after Ongoing (Valid flow)
 	 */
 	@Test
-	public void test_CompleteStatus() {
-		logger.info("-------------------------- test_CompleteStatus------------");
+	public void testCompleteStatus() {
+		logger.info("-------------------------- testCompleteStatus------------");
 		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
 
 		int id = Integer.parseInt(response.jsonPath().getString("id"));
@@ -80,8 +80,8 @@ public class OrderStatusTest {
 	 * Set Complete status on fresh order(invalid flow)
 	 */
 	@Test
-	public void test_CompleteStatus_after_creation() {
-		logger.info("-------------------------- test_CompleteStatus_after_creation------------");
+	public void testCompleteStatusAfterCreation() {
+		logger.info("-------------------------- testCompleteStatusAfterCreation------------");
 		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
 
 		int id = Integer.parseInt(response.jsonPath().getString("id"));
@@ -94,8 +94,8 @@ public class OrderStatusTest {
 	 * Set Complete status on cancelled order(invalid flow)
 	 */
 	@Test
-	public void test_CompleteStatus_after_cancel() {
-		logger.info("-------------------------- test_CompleteStatus_after_cancel------------");
+	public void testCompleteStatusAfterCancel() {
+		logger.info("-------------------------- testCompleteStatusAfterCancel------------");
 		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
 
 		int id = Integer.parseInt(response.jsonPath().getString("id"));
@@ -121,8 +121,8 @@ public class OrderStatusTest {
 	 * Set Cancel status on fresh order (valid flow)
 	 */
 	@Test
-	public void test_CancelStatus_after_creation() {
-		logger.info("-------------------------- test_CancelStatus_after_creation------------");
+	public void testCancelStatusAfterCreation() {
+		logger.info("-------------------------- testCancelStatusAfterCreation------------");
 		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
 
 		int id = Integer.parseInt(response.jsonPath().getString("id"));
@@ -133,8 +133,8 @@ public class OrderStatusTest {
 	 * Set Cancel status on completed order(invalid flow)
 	 */
 	@Test
-	public void test_CancelStatus_after_Complete() {
-		logger.info("-------------------------- test_CancelStatus_after_Complete------------");
+	public void testCancelStatusAfterComplete() {
+		logger.info("-------------------------- testCancelStatusAfterComplete------------");
 		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
 
 		int id = Integer.parseInt(response.jsonPath().getString("id"));

@@ -37,8 +37,8 @@ public class FetchOrderTest {
 	 * Get order with a valid id 
 	 */
 	@Test
-	public void test_fetchOrderDetail_valid() {
-		logger.info("-------------------------- test_fetchOrderDetail_valid------------");
+	public void testFetchOrderDetailValid() {
+		logger.info("-------------------------- testFetchOrderDetailValid------------");
 		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
 		int id = Integer.parseInt(response.jsonPath().getString("id"));
 		restCall.getOrder(id).then().statusCode(HttpStatus.SC_OK).assertThat().body("id", equalTo(id));
@@ -47,8 +47,8 @@ public class FetchOrderTest {
 	 * Get order with an invalid id 
 	 */
 	@Test
-	public void test_fetchOrderDetail_invalid() {
-		logger.info("-------------------------- test_fetchOrderDetail_invalid------------");
+	public void testFetchOrderDetailInvalid() {
+		logger.info("-------------------------- testFetchOrderDetailInvalid------------");
 		restCall.getOrder(dataService.getInvalidOrderId()).then().statusCode(HttpStatus.SC_NOT_FOUND).assertThat()
 				.body("message", equalTo(messagesReader.get("orderNotFound")));
 	}
