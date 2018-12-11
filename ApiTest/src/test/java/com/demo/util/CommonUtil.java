@@ -14,6 +14,12 @@ import org.slf4j.LoggerFactory;
 public class CommonUtil {
 
 	private static final Logger logger = LoggerFactory.getLogger(DataService.class);
+	
+	/**
+	 * Read file 
+	 * @param file : File 
+	 * @return: text from file as string 
+	 */
 	public static String readJson(File file) {
 		FileReader reader;
 		JSONObject payloadlist = null;

@@ -19,7 +19,6 @@ public class Config {
 	
 	@PostConstruct
 	public void setUp() {
-		System.out.println("************************************************************");
 		RestAssured.baseURI = dataService.getBaseUrl();
 	}
 	

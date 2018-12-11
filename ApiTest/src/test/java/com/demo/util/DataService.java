@@ -75,7 +75,10 @@ public class DataService {
 	public String getCancelOrder() {
 		return cancelOrder;
 	}
-
+	/**
+	 * Read valid place order payload from json file  
+	 * @return : payload as json string 
+	 */
 	public String getPlaceOrderJSon() {
 			try {
 				return CommonUtil.readJson(new ClassPathResource("payload/placeOrderRequest.json").getFile());
@@ -84,7 +87,10 @@ public class DataService {
 			}
 			return null;
 	}
-	
+	/**
+	 * Read valid future order payload from json file  
+	 * @return : payload as json string 
+	 */
 	public String getFutureOrderPlaceJSon() {
 			try {
 				return CommonUtil.readJson(new ClassPathResource("payload/futureOrderRequest.json").getFile());
@@ -94,7 +100,10 @@ public class DataService {
 			return null;
 		
 	}
-	
+	/**
+	 * Read past order payload from json file  
+	 * @return : payload as json string 
+	 */
 	public String getPastOrderPlaceJSon() {
 			try {
 				return CommonUtil.readJson(new ClassPathResource("payload/pastOrderRequest.json").getFile());
@@ -104,7 +113,10 @@ public class DataService {
 			return null;
 		
 	}
-	
+	/**
+	 * Read invalid  order payload from json file  
+	 * @return : payload as json string 
+	 */
 	public String getinvalidPlaceOrderJson() {
 			try {
 				return CommonUtil.readJson(new ClassPathResource("payload/invalidPlaceOrderRequest.json").getFile());
@@ -113,6 +125,10 @@ public class DataService {
 			}
 			return null;
 	}
+	/**
+	 * Read invalid future order payload from json file  
+	 * @return : payload as json string 
+	 */
 	public String getInvalidFutureOrderPlaceJSon() {
 		try {
 			return CommonUtil.readJson(new ClassPathResource("payload/invalidFutureOrderRequest.json").getFile());
