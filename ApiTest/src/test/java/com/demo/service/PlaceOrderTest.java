@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.demo.config.Config;
-import com.demo.config.Messages;
+import com.demo.config.MessagesReader;
 import com.demo.util.DataService;
 import com.demo.util.RestCall;
 
@@ -30,7 +30,7 @@ import io.restassured.response.Response;
 public class PlaceOrderTest {
 
 	@Autowired
-	private Messages messages;
+	private MessagesReader messagesReader;
 	
 	@Autowired
 	private DataService dataService;
@@ -61,7 +61,7 @@ public class PlaceOrderTest {
 	public void test_placeOrder_Invalid() {
 		logger.info("-------------------------- test_placeOrder_Invalid------------");
 		restCall.placeOrder(dataService.getinvalidPlaceOrderJson()).then().statusCode(HttpStatus.SC_BAD_REQUEST)
-				.assertThat().body("message", equalTo(messages.get("errorInFiledsStop")));
+				.assertThat().body("message", equalTo(messagesReader.get("errorInFiledsStop")));
 	}
 	/**
 	 * Place future order with past date
@@ -70,7 +70,7 @@ public class PlaceOrderTest {
 	public void test_placeOrderforPast() {
 		logger.info("-------------------------- test_placeOrderforPast------------");
 		restCall.placeOrder(dataService.getPastOrderPlaceJSon()).then().statusCode(HttpStatus.SC_BAD_REQUEST).
-		assertThat().body("message", equalTo(messages.get("futureOrderWithPastDateError")));
+		assertThat().body("message", equalTo(messagesReader.get("futureOrderWithPastDateError")));
 	}
 	/**
 	 * Place future order with invalid payload
@@ -79,7 +79,7 @@ public class PlaceOrderTest {
 	public void test_placeOrderforFuture_Invalid() {
 		logger.info("-------------------------- test_placeOrderforFuture_Invalid------------");
 		restCall.placeOrder(dataService.getInvalidFutureOrderPlaceJSon()).then().statusCode(HttpStatus.SC_BAD_REQUEST)
-		.assertThat().body("message", equalTo(messages.get("errorInFiledsStop")));
+		.assertThat().body("message", equalTo(messagesReader.get("errorInFiledsStop")));
 	}
 	
 	/**

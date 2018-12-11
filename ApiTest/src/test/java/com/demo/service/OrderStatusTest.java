@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.demo.config.Config;
-import com.demo.config.Messages;
+import com.demo.config.MessagesReader;
 import com.demo.util.DataService;
 import com.demo.util.DataService.ORDER_STATUS;
 import com.demo.util.RestCall;
@@ -31,7 +31,7 @@ public class OrderStatusTest {
 	private RestCall restCall;
 
 	@Autowired
-	private Messages messages;
+	private MessagesReader messagesReader;
 
 	private static final Logger logger = LoggerFactory.getLogger(FetchOrderTest.class);
 
@@ -59,7 +59,7 @@ public class OrderStatusTest {
 		int id = Integer.parseInt(response.jsonPath().getString("id"));
 		restCall.takeOrder(id);
 		restCall.takeOrder(id).then().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY).assertThat().body("message",
-				equalTo(messages.get("orderStatusIsNotAssigning")));
+				equalTo(messagesReader.get("orderStatusIsNotAssigning")));
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class OrderStatusTest {
 
 		int id = Integer.parseInt(response.jsonPath().getString("id"));
 		restCall.completeOrder(id).then().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY).assertThat().body("message",
-				equalTo(messages.get("orderStatusIsNotOngoing")));
+				equalTo(messagesReader.get("orderStatusIsNotOngoing")));
 	}
 
 
@@ -101,7 +101,7 @@ public class OrderStatusTest {
 		int id = Integer.parseInt(response.jsonPath().getString("id"));
 		restCall.cancelOrder(id);
 		restCall.completeOrder(id).then().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY).assertThat().body("message",
-				equalTo(messages.get("orderStatusIsNotOngoing")));
+				equalTo(messagesReader.get("orderStatusIsNotOngoing")));
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class OrderStatusTest {
 		restCall.takeOrder(id);
 		restCall.completeOrder(id);
 		restCall.cancelOrder(id).then().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY).assertThat().body("message",
-				equalTo(messages.get("orderIsCompleted")));
+				equalTo(messagesReader.get("orderIsCompleted")));
 	}
 
 }

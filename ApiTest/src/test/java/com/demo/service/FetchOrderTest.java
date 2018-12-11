@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.demo.config.Config;
-import com.demo.config.Messages;
+import com.demo.config.MessagesReader;
 import com.demo.util.DataService;
 import com.demo.util.RestCall;
 
@@ -31,7 +31,7 @@ public class FetchOrderTest {
 	private RestCall restCall;
 
 	@Autowired
-	private Messages messages;
+	private MessagesReader messagesReader;
 
 	/**
 	 * Get order with a valid id 
@@ -50,7 +50,7 @@ public class FetchOrderTest {
 	public void test_fetchOrderDetail_invalid() {
 		logger.info("-------------------------- test_fetchOrderDetail_invalid------------");
 		restCall.getOrder(dataService.getInvalidOrderId()).then().statusCode(HttpStatus.SC_NOT_FOUND).assertThat()
-				.body("message", equalTo(messages.get("orderNotFound")));
+				.body("message", equalTo(messagesReader.get("orderNotFound")));
 	}
 
 }
