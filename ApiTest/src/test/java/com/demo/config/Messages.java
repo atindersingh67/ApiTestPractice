@@ -1,4 +1,4 @@
-package com.atinder.config;
+package com.demo.config;
 
 import java.util.Locale;
 

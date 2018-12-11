@@ -1,4 +1,4 @@
-package com.atinder.service;
+package com.demo.service;
 
 import static org.hamcrest.Matchers.equalTo;
 
@@ -17,10 +17,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.atinder.config.Config;
-import com.atinder.config.Messages;
-import com.atinder.util.DataService;
-import com.atinder.util.RestCall;
+import com.demo.config.Config;
+import com.demo.config.Messages;
+import com.demo.util.DataService;
+import com.demo.util.RestCall;
 
 import io.restassured.response.Response;
 
@@ -38,40 +38,53 @@ public class PlaceOrderTest {
 	@Autowired
 	private RestCall restCall;
 	private static final Logger logger = LoggerFactory.getLogger(FetchOrderTest.class);
-
+	/**
+	 * Place order with valid payload 
+	 */
 	@Test
 	public void test_placeOrder() {
 		logger.info("-------------------------- test_placeOrder------------");
 		restCall.placeOrder(dataService.getPlaceOrderJSon()).then().statusCode(HttpStatus.SC_CREATED);
 	}
-
+	/**
+	 * Place future order with valid payload 
+	 */
 	@Test
 	public void test_placeOrderforFuture() {
 		logger.info("-------------------------- test_placeOrderforFuture------------");
 		restCall.placeOrder(dataService.getFutureOrderPlaceJSon()).then().statusCode(HttpStatus.SC_CREATED);
 	}
-
+	/**
+	 * Place order with invalid payload 
+	 */
 	@Test
 	public void test_placeOrder_Invalid() {
 		logger.info("-------------------------- test_placeOrder_Invalid------------");
 		restCall.placeOrder(dataService.getinvalidPlaceOrderJson()).then().statusCode(HttpStatus.SC_BAD_REQUEST)
 				.assertThat().body("message", equalTo(messages.get("errorInFiledsStop")));
 	}
-
+	/**
+	 * Place future order with past date
+	 */
 	@Test
 	public void test_placeOrderforPast() {
 		logger.info("-------------------------- test_placeOrderforPast------------");
 		restCall.placeOrder(dataService.getPastOrderPlaceJSon()).then().statusCode(HttpStatus.SC_BAD_REQUEST).
 		assertThat().body("message", equalTo(messages.get("futureOrderWithPastDateError")));
 	}
-
+	/**
+	 * Place future order with invalid payload
+	 */
 	@Test
 	public void test_placeOrderforFuture_Invalid() {
 		logger.info("-------------------------- test_placeOrderforFuture_Invalid------------");
 		restCall.placeOrder(dataService.getInvalidFutureOrderPlaceJSon()).then().statusCode(HttpStatus.SC_BAD_REQUEST)
 		.assertThat().body("message", equalTo(messages.get("errorInFiledsStop")));
 	}
-
+	
+	/**
+	 *Validate Stops 
+	 */
 	@Test
 	public void test_orderStops() {
 		logger.info("-------------------------- test_orderStops------------");
@@ -88,8 +101,7 @@ public class PlaceOrderTest {
 			responseArray = (JSONArray) jsonParser.parse(response.jsonPath().getString("drivingDistancesInMeters"));
 			Assert.assertEquals(reqArr.size() - 1, responseArray.size());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			logger.error("Error in converting Json");
+			logger.error("Error in converting Json" + e.getMessage(),e);
 		}
 
 	}

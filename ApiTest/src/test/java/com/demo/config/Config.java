@@ -1,11 +1,11 @@
-package com.atinder.config;
+package com.demo.config;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 
-import com.atinder.util.DataService;
+import com.demo.util.DataService;
 
 import io.restassured.RestAssured;
 

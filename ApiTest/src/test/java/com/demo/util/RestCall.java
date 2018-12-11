@@ -1,4 +1,4 @@
-package com.atinder.util;
+package com.demo.util;
 
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.put;

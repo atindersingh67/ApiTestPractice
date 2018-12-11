@@ -1,4 +1,4 @@
-package com.atinder.util;
+package com.demo.util;
 
 import java.io.IOException;
 
@@ -80,7 +80,6 @@ public class DataService {
 			try {
 				return CommonUtil.readJson(new ClassPathResource("payload/placeOrderRequest.json").getFile());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				logger.error("-------------------------- getPlaceOrderJSon------------" + e.getMessage(),e);
 			}
 			return null;
@@ -90,7 +89,6 @@ public class DataService {
 			try {
 				return CommonUtil.readJson(new ClassPathResource("payload/futureOrderRequest.json").getFile());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				logger.error("-------------------------- getFutureOrderPlaceJSon------------" + e.getMessage(),e);
 			}
 			return null;
@@ -101,7 +99,6 @@ public class DataService {
 			try {
 				return CommonUtil.readJson(new ClassPathResource("payload/pastOrderRequest.json").getFile());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				logger.error("-------------------------- getPastOrderPlaceJSon------------" + e.getMessage(),e);
 			}
 			return null;
@@ -112,7 +109,6 @@ public class DataService {
 			try {
 				return CommonUtil.readJson(new ClassPathResource("payload/invalidPlaceOrderRequest.json").getFile());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				logger.error("-------------------------- getinvalidPlaceOrderJson------------" + e.getMessage(),e);
 			}
 			return null;
@@ -121,7 +117,6 @@ public class DataService {
 		try {
 			return CommonUtil.readJson(new ClassPathResource("payload/invalidFutureOrderRequest.json").getFile());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			logger.error("-------------------------- getinvalidPlaceOrderJson------------" + e.getMessage(),e);
 		}
 		return null;

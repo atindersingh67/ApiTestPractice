@@ -1,4 +1,4 @@
-package com.atinder.service;
+package com.demo.service;
 
 import static org.hamcrest.Matchers.equalTo;
 
@@ -12,11 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.atinder.config.Config;
-import com.atinder.config.Messages;
-import com.atinder.util.DataService;
-import com.atinder.util.DataService.ORDER_STATUS;
-import com.atinder.util.RestCall;
+import com.demo.config.Config;
+import com.demo.config.Messages;
+import com.demo.util.DataService;
+import com.demo.util.DataService.ORDER_STATUS;
+import com.demo.util.RestCall;
 
 import io.restassured.response.Response;
 
@@ -35,6 +35,9 @@ public class OrderStatusTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(FetchOrderTest.class);
 
+	/**
+	 * Set Ongoing status for a fresh created order 
+	 */
 	@Test
 	public void test_OngoingStatus() {
 		logger.info("-------------------------- test_OngoingStatus------------");
@@ -45,6 +48,9 @@ public class OrderStatusTest {
 				equalTo(ORDER_STATUS.ONGOING.toString()));
 	}
 
+	/**
+	 * Set Ongoing status twice
+	 */
 	@Test
 	public void test_OngoingStatus_after_ongoing() {
 		logger.info("-------------------------- test_OngoingStatus_after_ongoing------------");
@@ -56,6 +62,9 @@ public class OrderStatusTest {
 				equalTo(messages.get("orderStatusIsNotAssigning")));
 	}
 
+	/**
+	 * Set Complete status after Ongoing (Valid flow)
+	 */
 	@Test
 	public void test_CompleteStatus() {
 		logger.info("-------------------------- test_CompleteStatus------------");
@@ -67,6 +76,9 @@ public class OrderStatusTest {
 				equalTo(ORDER_STATUS.COMPLETED.toString()));
 	}
 
+	/**
+	 * Set Complete status on fresh order(invalid flow)
+	 */
 	@Test
 	public void test_CompleteStatus_after_creation() {
 		logger.info("-------------------------- test_CompleteStatus_after_creation------------");
@@ -77,6 +89,10 @@ public class OrderStatusTest {
 				equalTo(messages.get("orderStatusIsNotOngoing")));
 	}
 
+
+	/**
+	 * Set Complete status on cancelled order(invalid flow)
+	 */
 	@Test
 	public void test_CompleteStatus_after_cancel() {
 		logger.info("-------------------------- test_CompleteStatus_after_cancel------------");
@@ -88,6 +104,9 @@ public class OrderStatusTest {
 				equalTo(messages.get("orderStatusIsNotOngoing")));
 	}
 
+	/**
+	 * Set Cancel status after ongoing(valid flow)
+	 */
 	@Test
 	public void test_CancelStatus() {
 		logger.info("-------------------------- test_CancelStatus------------");
@@ -98,7 +117,9 @@ public class OrderStatusTest {
 		restCall.cancelOrder(id).then().statusCode(HttpStatus.SC_OK).assertThat().body("status",
 				equalTo(ORDER_STATUS.CANCELLED.toString()));
 	}
-
+	/**
+	 * Set Cancel status on fresh order (valid flow)
+	 */
 	@Test
 	public void test_CancelStatus_after_creation() {
 		logger.info("-------------------------- test_CancelStatus_after_creation------------");
@@ -108,7 +129,9 @@ public class OrderStatusTest {
 		restCall.cancelOrder(id).then().statusCode(HttpStatus.SC_OK).assertThat().body("status",
 				equalTo(ORDER_STATUS.CANCELLED.toString()));
 	}
-
+	/**
+	 * Set Cancel status on completed order(invalid flow)
+	 */
 	@Test
 	public void test_CancelStatus_after_Complete() {
 		logger.info("-------------------------- test_CancelStatus_after_Complete------------");

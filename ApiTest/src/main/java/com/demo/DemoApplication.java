@@ -1,12 +1,12 @@
-package com.atinder;
+package com.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AtinderApplication {
+public class DemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AtinderApplication.class, args);
+		SpringApplication.run(DemoApplication.class, args);
 	}
 }

@@ -1,4 +1,4 @@
-package com.atinder.service;
+package com.demo.service;
 
 import static org.hamcrest.Matchers.equalTo;
 
@@ -12,10 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.atinder.config.Config;
-import com.atinder.config.Messages;
-import com.atinder.util.DataService;
-import com.atinder.util.RestCall;
+import com.demo.config.Config;
+import com.demo.config.Messages;
+import com.demo.util.DataService;
+import com.demo.util.RestCall;
 
 import io.restassured.response.Response;
 
@@ -33,6 +33,9 @@ public class FetchOrderTest {
 	@Autowired
 	private Messages messages;
 
+	/**
+	 * Get order with a valid id 
+	 */
 	@Test
 	public void test_fetchOrderDetail_valid() {
 		logger.info("-------------------------- test_fetchOrderDetail_valid------------");
@@ -40,7 +43,9 @@ public class FetchOrderTest {
 		int id = Integer.parseInt(response.jsonPath().getString("id"));
 		restCall.getOrder(id).then().statusCode(HttpStatus.SC_OK).assertThat().body("id", equalTo(id));
 	}
-
+	/**
+	 * Get order with an invalid id 
+	 */
 	@Test
 	public void test_fetchOrderDetail_invalid() {
 		logger.info("-------------------------- test_fetchOrderDetail_invalid------------");
