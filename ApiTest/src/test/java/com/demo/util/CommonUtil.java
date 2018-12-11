@@ -26,17 +26,13 @@ public class CommonUtil {
 
 			payloadlist = (JSONObject) obj;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			logger.error("-------------------------- readJson------------" + e.getMessage(),e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			logger.error("-------------------------- readJson------------" + e.getMessage(),e);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			logger.error("-------------------------- readJson------------" + e.getMessage(),e);
 		}
 
-		// LOGGER.log(Level.INFO, "payloadlist: "+payloadlist);
 		return payloadlist.toString();
 	}
 }
