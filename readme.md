@@ -2,7 +2,7 @@
 ## Pre-requisite
 1. Java above 1.8.
 2. Maven version above 3.0.
-
+3. Api should be running on local machine on localhost i. `http://localhost:51544/`
 ## How to install & Run using command prompt
 1. Please extract the project at your desired path.
 1. Go to src/test/resources/application.properties file and update configurations as per your requirement 
