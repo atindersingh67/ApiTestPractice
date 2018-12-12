@@ -3,6 +3,7 @@ package com.demo.service;
 import static org.hamcrest.Matchers.equalTo;
 
 import org.apache.http.HttpStatus;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -38,12 +39,19 @@ public class OrderStatusTest {
 	/**
 	 * Set Ongoing status for a fresh created order 
 	 */
+	
+	private Response response=null;
+	private int id=0;
+	@Before
+	public void setup(){
+		response = restCall.placeOrder(dataService.getPlaceOrderJSon());
+		id = Integer.parseInt(response.jsonPath().getString("id"));
+	}
+	
 	@Test
 	public void testOngoingStatus() {
 		logger.info("-------------------------- testOngoingStatus------------");
-		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
-
-		int id = Integer.parseInt(response.jsonPath().getString("id"));
+		
 		restCall.takeOrder(id).then().statusCode(HttpStatus.SC_OK).assertThat().body("status",
 				equalTo(ORDER_STATUS.ONGOING.toString()));
 	}
@@ -54,9 +62,7 @@ public class OrderStatusTest {
 	@Test
 	public void testOngoingStatusAfterOngoing() {
 		logger.info("-------------------------- testOngoingStatusAfterOngoing------------");
-		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
 
-		int id = Integer.parseInt(response.jsonPath().getString("id"));
 		restCall.takeOrder(id);
 		restCall.takeOrder(id).then().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY).assertThat().body("message",
 				equalTo(messagesReader.get("orderStatusIsNotAssigning")));
@@ -68,9 +74,7 @@ public class OrderStatusTest {
 	@Test
 	public void testCompleteStatus() {
 		logger.info("-------------------------- testCompleteStatus------------");
-		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
 
-		int id = Integer.parseInt(response.jsonPath().getString("id"));
 		restCall.takeOrder(id);
 		restCall.completeOrder(id).then().statusCode(HttpStatus.SC_OK).assertThat().body("status",
 				equalTo(ORDER_STATUS.COMPLETED.toString()));
@@ -82,9 +86,7 @@ public class OrderStatusTest {
 	@Test
 	public void testCompleteStatusAfterCreation() {
 		logger.info("-------------------------- testCompleteStatusAfterCreation------------");
-		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
 
-		int id = Integer.parseInt(response.jsonPath().getString("id"));
 		restCall.completeOrder(id).then().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY).assertThat().body("message",
 				equalTo(messagesReader.get("orderStatusIsNotOngoing")));
 	}
@@ -96,9 +98,7 @@ public class OrderStatusTest {
 	@Test
 	public void testCompleteStatusAfterCancel() {
 		logger.info("-------------------------- testCompleteStatusAfterCancel------------");
-		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
 
-		int id = Integer.parseInt(response.jsonPath().getString("id"));
 		restCall.cancelOrder(id);
 		restCall.completeOrder(id).then().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY).assertThat().body("message",
 				equalTo(messagesReader.get("orderStatusIsNotOngoing")));
@@ -110,9 +110,7 @@ public class OrderStatusTest {
 	@Test
 	public void test_CancelStatus() {
 		logger.info("-------------------------- test_CancelStatus------------");
-		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
 
-		int id = Integer.parseInt(response.jsonPath().getString("id"));
 		restCall.takeOrder(id);
 		restCall.cancelOrder(id).then().statusCode(HttpStatus.SC_OK).assertThat().body("status",
 				equalTo(ORDER_STATUS.CANCELLED.toString()));
@@ -123,9 +121,7 @@ public class OrderStatusTest {
 	@Test
 	public void testCancelStatusAfterCreation() {
 		logger.info("-------------------------- testCancelStatusAfterCreation------------");
-		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
-
-		int id = Integer.parseInt(response.jsonPath().getString("id"));
+	
 		restCall.cancelOrder(id).then().statusCode(HttpStatus.SC_OK).assertThat().body("status",
 				equalTo(ORDER_STATUS.CANCELLED.toString()));
 	}
@@ -135,9 +131,6 @@ public class OrderStatusTest {
 	@Test
 	public void testCancelStatusAfterComplete() {
 		logger.info("-------------------------- testCancelStatusAfterComplete------------");
-		Response response = restCall.placeOrder(dataService.getPlaceOrderJSon());
-
-		int id = Integer.parseInt(response.jsonPath().getString("id"));
 		restCall.takeOrder(id);
 		restCall.completeOrder(id);
 		restCall.cancelOrder(id).then().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY).assertThat().body("message",
