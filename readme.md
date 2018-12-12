@@ -9,6 +9,6 @@
 	* Update `invalidOrderId` in application.properties file , i.e the order which should not exist in database.
 	* Update `baseUrl` in application.properties file ,i.e. where api is hosted  e.g. `localhost:51544`
 1. Open the command prompt and go to the project path.
-1. Run `mvn surefire-report:report` command to execute all tests and generate a html report for test results.Please find html report under "target\site" directory. 
+1. Run `mvn surefire-report:report` command to execute all tests and generate a html report for test results.Please find html report under `target\site` directory. 
 
 
