@@ -107,6 +107,9 @@ public class PlaceOrderTest {
 
 	}
 	
+	/**
+	 * validate cost when order
+	 */
 	@Test 
 	public void verifyTripCostOutOf9to5(){
 		logger.info("-------------------------- verifyTripCostOutOf9to5------------");
