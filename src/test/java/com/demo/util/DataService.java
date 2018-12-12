@@ -34,6 +34,12 @@ public class DataService {
 	@Value("${cancelOrder}")
 	private String cancelOrder;
 	
+	@Value("${totalFarenotin9to5}")
+	private String totalFarenotin9to5;
+
+	
+	@Value("${totalFarein9To5}")
+	private String totalFarein9To5;
 
 	public String getBaseUrl() {
 		return baseUrl;
@@ -75,6 +81,22 @@ public class DataService {
 	public String getCancelOrder() {
 		return cancelOrder;
 	}
+	
+	
+	/**
+	 * @return the totalFarenotin9to5
+	 */
+	public String getTotalFarenotin9to5() {
+		return totalFarenotin9to5;
+	}
+
+	/**
+	 * @return the totalFarein9To5
+	 */
+	public String getTotalFarein9To5() {
+		return totalFarein9To5;
+	}
+
 	/**
 	 * Read valid place order payload from json file  
 	 * @return : payload as json string 
@@ -137,7 +159,36 @@ public class DataService {
 		}
 		return null;
 	
-}
+	}
+	
+	
+	/**
+	 * Read Json For Order between 9 to 5
+	 * @return : payload as json string 
+	 */
+	public String orderCostIn9to5Json() {
+		try {
+			return CommonUtil.readJson(new ClassPathResource("payload/orderCostIn9to5.json").getFile());
+		} catch (IOException e) {
+			logger.error("-------------------------- orderCostIn9to5------------" + e.getMessage(),e);
+		}
+		return null;
+	
+	}
+	
+	/**
+	 * Read Json For Order Out of  9 to 5
+	 * @return : payload as json string 
+	 */
+	public String orderCostNotIn9to5Json() {
+		try {
+			return CommonUtil.readJson(new ClassPathResource("payload/orderCostOutOf9to5.json").getFile());
+		} catch (IOException e) {
+			logger.error("-------------------------- orderCostNotIn9to5------------" + e.getMessage(),e);
+		}
+		return null;
+	
+	}
 	/**************Status of Orders********************/
 	public enum ORDER_STATUS {
 		ONGOING, COMPLETED, CANCELLED;

@@ -41,4 +41,15 @@ public class CommonUtil {
 
 		return payloadlist.toString();
 	}
+	
+	public static JSONObject getJsonFromString(String str){
+		JSONParser jsonParser = new JSONParser();
+		try {
+			return (JSONObject) jsonParser.parse(str);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			logger.error("-------------------------- getJsonFromString------------" + e.getMessage(),e);
+		}
+		return null;
+	}
 }
